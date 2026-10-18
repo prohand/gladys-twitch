@@ -8,8 +8,8 @@
     "de": "Twitch-Kanäle verfolgen: Live-Status, Zuschauer, Kategorie, Szenen und Widget.",
     "es": "Siga canales de Twitch: directo, espectadores, categoría, escenas y widget."
   },
-  "version": "0.1.0",
-  "docker_image": "ghcr.io/prohand/gladys-twitch:0.1.0",
+  "version": "0.1.1",
+  "docker_image": "ghcr.io/prohand/gladys-twitch:0.1.1",
   "gladys_version": ">=5.1.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-twitch/main/cover.png",
   "categories": ["multimedia", "notifications", "services"],
@@ -45,7 +45,12 @@
     {
       "key": "client_id",
       "type": "string",
-      "label": { "en": "Client ID", "fr": "Client ID", "de": "Client-ID", "es": "Client ID" },
+      "label": {
+        "en": "Client ID",
+        "fr": "Client ID",
+        "de": "Client-ID",
+        "es": "Client ID"
+      },
       "placeholder": {
         "en": "e.g. abcdefghijklmnopqrstuvwxyz0123",
         "fr": "ex. abcdefghijklmnopqrstuvwxyz0123",
@@ -68,7 +73,12 @@
     {
       "key": "channels",
       "type": "string",
-      "label": { "en": "Channels", "fr": "Chaînes", "de": "Kanäle", "es": "Canales" },
+      "label": {
+        "en": "Channels",
+        "fr": "Chaînes",
+        "de": "Kanäle",
+        "es": "Canales"
+      },
       "description": {
         "en": "Twitch channels to watch, separated by commas (names or twitch.tv links, 100 at most).",
         "fr": "Chaînes Twitch à suivre, séparées par des virgules (noms ou liens twitch.tv, 100 au plus).",
@@ -137,12 +147,22 @@
           "key": "channel",
           "type": "select",
           "source": "devices",
-          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+          "label": {
+            "en": "Channel",
+            "fr": "Chaîne",
+            "de": "Kanal",
+            "es": "Canal"
+          }
         },
         {
           "key": "game",
           "type": "string",
-          "label": { "en": "Category", "fr": "Catégorie", "de": "Kategorie", "es": "Categoría" },
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          },
           "description": {
             "en": "Only when the stream starts in this category (exact name, e.g. Just Chatting).",
             "fr": "Seulement si le live commence dans cette catégorie (nom exact, ex. Just Chatting).",
@@ -155,7 +175,12 @@
         {
           "key": "channel_name",
           "type": "string",
-          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+          "label": {
+            "en": "Channel",
+            "fr": "Chaîne",
+            "de": "Kanal",
+            "es": "Canal"
+          }
         },
         {
           "key": "title",
@@ -170,7 +195,12 @@
         {
           "key": "game",
           "type": "string",
-          "label": { "en": "Category", "fr": "Catégorie", "de": "Kategorie", "es": "Categoría" }
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          }
         },
         {
           "key": "url",
@@ -203,14 +233,24 @@
           "key": "channel",
           "type": "select",
           "source": "devices",
-          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+          "label": {
+            "en": "Channel",
+            "fr": "Chaîne",
+            "de": "Kanal",
+            "es": "Canal"
+          }
         }
       ],
       "variables": [
         {
           "key": "channel_name",
           "type": "string",
-          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+          "label": {
+            "en": "Channel",
+            "fr": "Chaîne",
+            "de": "Kanal",
+            "es": "Canal"
+          }
         },
         {
           "key": "duration_minutes",
@@ -243,7 +283,12 @@
           "key": "channel",
           "type": "select",
           "source": "devices",
-          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+          "label": {
+            "en": "Channel",
+            "fr": "Chaîne",
+            "de": "Kanal",
+            "es": "Canal"
+          }
         },
         {
           "key": "game",
@@ -266,7 +311,12 @@
         {
           "key": "channel_name",
           "type": "string",
-          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+          "label": {
+            "en": "Channel",
+            "fr": "Chaîne",
+            "de": "Kanal",
+            "es": "Canal"
+          }
         },
         {
           "key": "game",
@@ -340,17 +390,32 @@
         {
           "key": "is_live",
           "type": "boolean",
-          "label": { "en": "Is live", "fr": "En direct", "de": "Ist live", "es": "En directo" }
+          "label": {
+            "en": "Is live",
+            "fr": "En direct",
+            "de": "Ist live",
+            "es": "En directo"
+          }
         },
         {
           "key": "channel_name",
           "type": "string",
-          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+          "label": {
+            "en": "Channel",
+            "fr": "Chaîne",
+            "de": "Kanal",
+            "es": "Canal"
+          }
         },
         {
           "key": "viewer_count",
           "type": "number",
-          "label": { "en": "Viewers", "fr": "Spectateurs", "de": "Zuschauer", "es": "Espectadores" }
+          "label": {
+            "en": "Viewers",
+            "fr": "Spectateurs",
+            "de": "Zuschauer",
+            "es": "Espectadores"
+          }
         },
         {
           "key": "title",
@@ -365,7 +430,12 @@
         {
           "key": "game",
           "type": "string",
-          "label": { "en": "Category", "fr": "Catégorie", "de": "Kategorie", "es": "Categoría" }
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          }
         },
         {
           "key": "uptime_minutes",
