@@ -1,0 +1,454 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Twitch",
+  "description": {
+    "en": "Follow Twitch channels: live status, viewers, category, scenes and a dashboard widget.",
+    "fr": "Suivez des chaînes Twitch : direct, spectateurs, catégorie, scènes et widget.",
+    "de": "Twitch-Kanäle verfolgen: Live-Status, Zuschauer, Kategorie, Szenen und Widget.",
+    "es": "Siga canales de Twitch: directo, espectadores, categoría, escenas y widget."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/prohand/gladys-twitch:0.1.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/prohand/gladys-twitch/main/cover.png",
+  "categories": ["multimedia", "notifications", "services"],
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Twitch application",
+        "fr": "Application Twitch",
+        "de": "Twitch-Anwendung",
+        "es": "Aplicación de Twitch"
+      },
+      "description": {
+        "en": "Register a free application on the Twitch developer console (OAuth Redirect URL: http://localhost, category: Other, client type: Confidential), then paste its Client ID and a new Client Secret below. No Twitch account is linked: the integration only reads public data.",
+        "fr": "Créez une application gratuite dans la console développeur Twitch (OAuth Redirect URL : http://localhost, catégorie : Other, type de client : Confidentiel), puis collez son Client ID et un nouveau Client Secret ci-dessous. Aucun compte Twitch n'est lié : l'intégration ne lit que des données publiques.",
+        "de": "Registrieren Sie eine kostenlose Anwendung in der Twitch-Entwicklerkonsole (OAuth Redirect URL: http://localhost, Kategorie: Other, Client-Typ: Vertraulich) und fügen Sie unten ihre Client-ID und ein neues Client-Secret ein. Es wird kein Twitch-Konto verknüpft: die Integration liest nur öffentliche Daten.",
+        "es": "Registre una aplicación gratuita en la consola de desarrolladores de Twitch (OAuth Redirect URL: http://localhost, categoría: Other, tipo de cliente: Confidencial) y pegue abajo su Client ID y un nuevo Client Secret. No se vincula ninguna cuenta de Twitch: la integración solo lee datos públicos."
+      },
+      "links": [
+        {
+          "url": "https://dev.twitch.tv/console/apps/create",
+          "label": {
+            "en": "Twitch developer console",
+            "fr": "Console développeur Twitch",
+            "de": "Twitch-Entwicklerkonsole",
+            "es": "Consola de desarrolladores de Twitch"
+          }
+        }
+      ]
+    },
+    {
+      "key": "client_id",
+      "type": "string",
+      "label": { "en": "Client ID", "fr": "Client ID", "de": "Client-ID", "es": "Client ID" },
+      "placeholder": {
+        "en": "e.g. abcdefghijklmnopqrstuvwxyz0123",
+        "fr": "ex. abcdefghijklmnopqrstuvwxyz0123",
+        "de": "z. B. abcdefghijklmnopqrstuvwxyz0123",
+        "es": "p. ej. abcdefghijklmnopqrstuvwxyz0123"
+      },
+      "required": true
+    },
+    {
+      "key": "client_secret",
+      "type": "secret",
+      "label": {
+        "en": "Client Secret",
+        "fr": "Client Secret",
+        "de": "Client-Secret",
+        "es": "Client Secret"
+      },
+      "required": true
+    },
+    {
+      "key": "channels",
+      "type": "string",
+      "label": { "en": "Channels", "fr": "Chaînes", "de": "Kanäle", "es": "Canales" },
+      "description": {
+        "en": "Twitch channels to watch, separated by commas (names or twitch.tv links, 100 at most).",
+        "fr": "Chaînes Twitch à suivre, séparées par des virgules (noms ou liens twitch.tv, 100 au plus).",
+        "de": "Zu beobachtende Twitch-Kanäle, durch Kommas getrennt (Namen oder twitch.tv-Links, höchstens 100).",
+        "es": "Canales de Twitch a seguir, separados por comas (nombres o enlaces twitch.tv, 100 como máximo)."
+      },
+      "placeholder": {
+        "en": "e.g. gladysassistant, twitchdev",
+        "fr": "ex. gladysassistant, twitchdev",
+        "de": "z. B. gladysassistant, twitchdev",
+        "es": "p. ej. gladysassistant, twitchdev"
+      },
+      "required": false,
+      "default": ""
+    },
+    {
+      "key": "poll_frequency",
+      "type": "number",
+      "label": {
+        "en": "Refresh interval (s)",
+        "fr": "Intervalle de rafraîchissement (s)",
+        "de": "Aktualisierungsintervall (s)",
+        "es": "Intervalo de actualización (s)"
+      },
+      "description": {
+        "en": "How often Twitch is read, in seconds (30 to 3600).",
+        "fr": "Fréquence de lecture de Twitch, en secondes (30 à 3600).",
+        "de": "Wie oft Twitch abgefragt wird, in Sekunden (30 bis 3600).",
+        "es": "Frecuencia de consulta de Twitch, en segundos (30 a 3600)."
+      },
+      "required": false,
+      "default": 60,
+      "min": 30,
+      "max": 3600
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "timeout_seconds": 30
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "stream_online",
+      "label": {
+        "en": "Twitch stream started",
+        "fr": "Live Twitch commencé",
+        "de": "Twitch-Stream gestartet",
+        "es": "Directo de Twitch iniciado"
+      },
+      "description": {
+        "en": "A watched channel goes live.",
+        "fr": "Une chaîne suivie passe en direct.",
+        "de": "Ein beobachteter Kanal geht live.",
+        "es": "Un canal seguido empieza un directo."
+      },
+      "fields": [
+        {
+          "key": "channel",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+        },
+        {
+          "key": "game",
+          "type": "string",
+          "label": { "en": "Category", "fr": "Catégorie", "de": "Kategorie", "es": "Categoría" },
+          "description": {
+            "en": "Only when the stream starts in this category (exact name, e.g. Just Chatting).",
+            "fr": "Seulement si le live commence dans cette catégorie (nom exact, ex. Just Chatting).",
+            "de": "Nur wenn der Stream in dieser Kategorie startet (genauer Name, z. B. Just Chatting).",
+            "es": "Solo si el directo empieza en esta categoría (nombre exacto, p. ej. Just Chatting)."
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "channel_name",
+          "type": "string",
+          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "label": {
+            "en": "Stream title",
+            "fr": "Titre du live",
+            "de": "Stream-Titel",
+            "es": "Título del directo"
+          }
+        },
+        {
+          "key": "game",
+          "type": "string",
+          "label": { "en": "Category", "fr": "Catégorie", "de": "Kategorie", "es": "Categoría" }
+        },
+        {
+          "key": "url",
+          "type": "string",
+          "label": {
+            "en": "Channel link",
+            "fr": "Lien de la chaîne",
+            "de": "Kanal-Link",
+            "es": "Enlace del canal"
+          }
+        }
+      ]
+    },
+    {
+      "key": "stream_offline",
+      "label": {
+        "en": "Twitch stream ended",
+        "fr": "Live Twitch terminé",
+        "de": "Twitch-Stream beendet",
+        "es": "Directo de Twitch terminado"
+      },
+      "description": {
+        "en": "A watched channel stops streaming.",
+        "fr": "Une chaîne suivie arrête son direct.",
+        "de": "Ein beobachteter Kanal beendet seinen Stream.",
+        "es": "Un canal seguido termina su directo."
+      },
+      "fields": [
+        {
+          "key": "channel",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+        }
+      ],
+      "variables": [
+        {
+          "key": "channel_name",
+          "type": "string",
+          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+        },
+        {
+          "key": "duration_minutes",
+          "type": "number",
+          "label": {
+            "en": "Stream duration (min)",
+            "fr": "Durée du live (min)",
+            "de": "Stream-Dauer (min)",
+            "es": "Duración del directo (min)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "category_changed",
+      "label": {
+        "en": "Twitch category changed",
+        "fr": "Catégorie Twitch changée",
+        "de": "Twitch-Kategorie geändert",
+        "es": "Categoría de Twitch cambiada"
+      },
+      "description": {
+        "en": "A live channel switches to another game or category.",
+        "fr": "Une chaîne en direct passe à un autre jeu ou une autre catégorie.",
+        "de": "Ein Live-Kanal wechselt zu einem anderen Spiel oder einer anderen Kategorie.",
+        "es": "Un canal en directo cambia a otro juego u otra categoría."
+      },
+      "fields": [
+        {
+          "key": "channel",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+        },
+        {
+          "key": "game",
+          "type": "string",
+          "label": {
+            "en": "New category",
+            "fr": "Nouvelle catégorie",
+            "de": "Neue Kategorie",
+            "es": "Nueva categoría"
+          },
+          "description": {
+            "en": "Only when the channel switches to this category (exact name).",
+            "fr": "Seulement si la chaîne passe à cette catégorie (nom exact).",
+            "de": "Nur wenn der Kanal zu dieser Kategorie wechselt (genauer Name).",
+            "es": "Solo si el canal cambia a esta categoría (nombre exacto)."
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "channel_name",
+          "type": "string",
+          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+        },
+        {
+          "key": "game",
+          "type": "string",
+          "label": {
+            "en": "New category",
+            "fr": "Nouvelle catégorie",
+            "de": "Neue Kategorie",
+            "es": "Nueva categoría"
+          }
+        },
+        {
+          "key": "previous_game",
+          "type": "string",
+          "label": {
+            "en": "Previous category",
+            "fr": "Catégorie précédente",
+            "de": "Vorherige Kategorie",
+            "es": "Categoría anterior"
+          }
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "label": {
+            "en": "Stream title",
+            "fr": "Titre du live",
+            "de": "Stream-Titel",
+            "es": "Título del directo"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "get_stream_status",
+      "label": {
+        "en": "Check a Twitch channel",
+        "fr": "Vérifier une chaîne Twitch",
+        "de": "Twitch-Kanal prüfen",
+        "es": "Comprobar un canal de Twitch"
+      },
+      "description": {
+        "en": "Is this channel live right now? Any public channel, watched or not.",
+        "fr": "Cette chaîne est-elle en direct ? N'importe quelle chaîne publique, suivie ou non.",
+        "de": "Ist dieser Kanal gerade live? Jeder öffentliche Kanal, beobachtet oder nicht.",
+        "es": "¿Está este canal en directo? Cualquier canal público, seguido o no."
+      },
+      "timeout_seconds": 20,
+      "fields": [
+        {
+          "key": "channel",
+          "type": "string",
+          "label": {
+            "en": "Channel name",
+            "fr": "Nom de la chaîne",
+            "de": "Kanalname",
+            "es": "Nombre del canal"
+          },
+          "placeholder": {
+            "en": "e.g. twitchdev",
+            "fr": "ex. twitchdev",
+            "de": "z. B. twitchdev",
+            "es": "p. ej. twitchdev"
+          },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "is_live",
+          "type": "boolean",
+          "label": { "en": "Is live", "fr": "En direct", "de": "Ist live", "es": "En directo" }
+        },
+        {
+          "key": "channel_name",
+          "type": "string",
+          "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" }
+        },
+        {
+          "key": "viewer_count",
+          "type": "number",
+          "label": { "en": "Viewers", "fr": "Spectateurs", "de": "Zuschauer", "es": "Espectadores" }
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "label": {
+            "en": "Stream title",
+            "fr": "Titre du live",
+            "de": "Stream-Titel",
+            "es": "Título del directo"
+          }
+        },
+        {
+          "key": "game",
+          "type": "string",
+          "label": { "en": "Category", "fr": "Catégorie", "de": "Kategorie", "es": "Categoría" }
+        },
+        {
+          "key": "uptime_minutes",
+          "type": "number",
+          "label": {
+            "en": "Live for (min)",
+            "fr": "En direct depuis (min)",
+            "de": "Live seit (min)",
+            "es": "En directo desde (min)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "refresh_channels",
+      "label": {
+        "en": "Refresh Twitch channels",
+        "fr": "Rafraîchir les chaînes Twitch",
+        "de": "Twitch-Kanäle aktualisieren",
+        "es": "Actualizar canales de Twitch"
+      },
+      "description": {
+        "en": "Read the watched channels now, before the next refresh.",
+        "fr": "Lit les chaînes suivies maintenant, sans attendre le prochain rafraîchissement.",
+        "de": "Liest die beobachteten Kanäle jetzt, vor der nächsten Aktualisierung.",
+        "es": "Lee los canales seguidos ahora, sin esperar la próxima actualización."
+      },
+      "timeout_seconds": 20,
+      "outputs": [
+        {
+          "key": "live_count",
+          "type": "number",
+          "label": {
+            "en": "Channels live",
+            "fr": "Chaînes en direct",
+            "de": "Kanäle live",
+            "es": "Canales en directo"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "twitch_channels",
+      "label": {
+        "en": "Twitch channels",
+        "fr": "Chaînes Twitch",
+        "de": "Twitch-Kanäle",
+        "es": "Canales de Twitch"
+      },
+      "description": {
+        "en": "Who is live, in which category and for how many viewers.",
+        "fr": "Qui est en direct, dans quelle catégorie et devant combien de spectateurs.",
+        "de": "Wer live ist, in welcher Kategorie und vor wie vielen Zuschauern.",
+        "es": "Quién está en directo, en qué categoría y ante cuántos espectadores."
+      },
+      "icon": "tv",
+      "settings": [
+        {
+          "key": "channels",
+          "type": "multi_select",
+          "source": "devices",
+          "label": {
+            "en": "Channels shown (all if empty)",
+            "fr": "Chaînes affichées (toutes si vide)",
+            "de": "Angezeigte Kanäle (alle wenn leer)",
+            "es": "Canales mostrados (todos si vacío)"
+          }
+        },
+        {
+          "key": "only_live",
+          "type": "boolean",
+          "label": {
+            "en": "Only live channels",
+            "fr": "Seulement les chaînes en direct",
+            "de": "Nur Live-Kanäle",
+            "es": "Solo canales en directo"
+          },
+          "default": false
+        }
+      ],
+      "action_timeout_seconds": 20
+    }
+  ]
+}
