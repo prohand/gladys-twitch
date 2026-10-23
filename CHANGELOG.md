@@ -12,11 +12,13 @@ the notes of the version's GitHub Release.
 
 ## [0.1.3] - 2026-10-23
 
-- Maintenance release, no functional change.
+- Maintenance release, no functional change. It publishes 0.1.2, which never
+  got its image.
 
 ## [0.1.2] - 2026-10-23
 
-- Maintenance release, no functional change.
+- Not published: the Release workflow could not push the `v0.1.2` tag, so this
+  version has no image and no GitHub Release. Use 0.1.3, which ships the same code.
 
 ## [0.1.1] - 2026-10-18
 
@@ -43,6 +45,6 @@ the notes of the version's GitHub Release.
   every version, Dependabot.
 
 [Unreleased]: https://github.com/prohand/gladys-twitch/compare/v0.1.3...HEAD
-[0.1.3]: https://github.com/prohand/gladys-twitch/compare/v0.1.2...v0.1.3
-[0.1.2]: https://github.com/prohand/gladys-twitch/compare/v0.1.1...v0.1.2
+[0.1.3]: https://github.com/prohand/gladys-twitch/compare/v0.1.1...v0.1.3
+[0.1.2]: https://github.com/prohand/gladys-twitch/commit/a0a8734b58406f71479f359013ebfe2047f26a91
 [0.1.1]: https://github.com/prohand/gladys-twitch/releases/tag/v0.1.1
