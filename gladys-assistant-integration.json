@@ -8,8 +8,8 @@
     "de": "Twitch-Kanäle verfolgen: Live-Status, Zuschauer, Kategorie, Szenen und Widget.",
     "es": "Siga canales de Twitch: directo, espectadores, categoría, escenas y widget."
   },
-  "version": "0.1.3",
-  "docker_image": "ghcr.io/prohand/gladys-twitch:0.1.3",
+  "version": "0.2.0",
+  "docker_image": "ghcr.io/prohand/gladys-twitch:0.2.0",
   "gladys_version": ">=5.3.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-twitch/main/cover.png",
   "categories": ["leisure", "multimedia", "notifications"],
