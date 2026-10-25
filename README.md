@@ -7,7 +7,8 @@ category, scene actions, and a dashboard widget.
 
 - **Type**: `device` — one device per watched channel.
 - **Transport**: `cloud` (the Twitch Helix API, read-only, public data).
-- **Gladys**: 5.1.0 or later (scene triggers, scene actions, widgets).
+- **Gladys**: 5.3.0 or later (catalog keywords; scene triggers, scene actions and widgets
+  need 5.1.0).
 - **Languages**: English, French, German, Spanish.
 
 User documentation: [English](docs/en.md) · [Français](docs/fr.md) ·

@@ -10,6 +10,17 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Added
+
+- Catalog: the integration now sits on the new **Leisure** shelf (with Multimedia and
+  Notifications; it leaves the generic Services shelf), and is found by search terms such as
+  "streaming", "streamer" or "gaming".
+
+### Changed
+
+- **Gladys 5.3.0 or later is now required** (the catalog search terms need it).
+- SDK `@gladysassistant/integration-sdk` 0.16.
+
 ## [0.1.3] - 2026-10-23
 
 - Maintenance release, no functional change. It publishes 0.1.2, which never

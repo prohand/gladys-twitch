@@ -8,6 +8,8 @@ L'intégration ne lit que des données **publiques**. Aucun compte Twitch n'est
 lié : elle utilise les identifiants d'une application Twitch gratuite que vous
 créez une fois.
 
+Nécessite **Gladys 5.3.0 ou plus récent**.
+
 ## 1. Créer une application Twitch
 
 1. Allez sur la [console développeur Twitch](https://dev.twitch.tv/console/apps/create)

@@ -14,8 +14,8 @@ and runs in its own sandboxed Docker container.
 It watches public Twitch channels with an **app access token** (client
 credentials: the Client ID / Client Secret of an app the user registers on
 dev.twitch.tv) — no Twitch account is linked. Cloud only: the manifest
-declares `"transports": ["cloud"]`. Gladys 5.1+ (scene triggers, scene actions,
-dashboard widget).
+declares `"transports": ["cloud"]`. Gladys 5.3+ (`gladys_version >=5.3.0`, for the
+catalog `keywords`; scene triggers, scene actions and the dashboard widget need 5.1).
 
 ## Commands
 
@@ -87,7 +87,10 @@ test/helpers/setup.js        the app against the SDK's fake Gladys + fake Twitch
   `description` and `placeholder` alike (`test/manifest.test.js` enforces the
   four languages). The catalog `description` holds 10 to 100 characters per
   language. The manifest test ties actions, scene triggers / actions and
-  widgets to their handlers: change both sides together.
+  widgets to their handlers: change both sides together. It also pins the
+  catalog fields: `categories` (1–3, `leisure` among them), `keywords` (1–10
+  unique terms of 2–30 characters), no `countries` (Twitch is worldwide), and
+  the `>=5.3.0` floor they require.
 - **User-facing text** (action messages, connection status, widget) is
   `{ en, fr, de, es }`, built with `src/i18n.js`; `docs/en.md`, `docs/fr.md`,
   `docs/de.md` and `docs/es.md` are kept in sync.

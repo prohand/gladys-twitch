@@ -7,6 +7,8 @@ channels on a dashboard.
 The integration only reads **public** data. No Twitch account is linked: it
 uses the identifiers of a free Twitch application you create once.
 
+Requires **Gladys 5.3.0 or later**.
+
 ## 1. Create a Twitch application
 
 1. Go to the [Twitch developer console](https://dev.twitch.tv/console/apps/create)
