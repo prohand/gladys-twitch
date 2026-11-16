@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-11-16
+
 - Update `@gladysassistant/integration-sdk` to 0.16.1 (security update).
 
 ## [0.2.2] - 2026-11-16
@@ -67,7 +69,8 @@ the notes of the version's GitHub Release.
   UI-driven Release workflow, multi-arch image on ghcr.io, a GitHub Release for
   every version, Dependabot.
 
-[Unreleased]: https://github.com/prohand/gladys-twitch/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/prohand/gladys-twitch/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/prohand/gladys-twitch/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/prohand/gladys-twitch/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/prohand/gladys-twitch/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/prohand/gladys-twitch/compare/v0.1.3...v0.2.0
